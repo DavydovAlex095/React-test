@@ -1,0 +1,8 @@
+.issues-list {
+    border: 1px dashed black;
+    /*width: 100%;*/
+    margin: 10px 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
