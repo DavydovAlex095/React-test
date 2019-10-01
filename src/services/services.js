@@ -5,7 +5,6 @@ const _apiBase = 'https://redmine.ekreative.com';
 const { dispatch } = store;
 
 export const getProjects = () => {
-    console.log('req works!');
     const url = '/projects.json';
 
     return fetch(`${_apiBase}${url}`, {
@@ -46,7 +45,6 @@ export const getProjectIssues = projectId => {
 
 export const getProjSpentTime = projectId => {
     const url = '/time_entries.json';
-    console.log(`getSpentTime URL: ${_apiBase}${url}?project_id=${projectId}`);
 
     return fetch(
         `${_apiBase}${url}?project_id=${projectId}`,
@@ -65,11 +63,11 @@ export const getProjSpentTime = projectId => {
         .catch(reject=> console.log('You have Error: ', reject))
 };
 
-export const getIssueSpentTime = (issueId=53008) => {
+export const getIssueSpentTime = ( issueId ) => {
     const url = '/time_entries.json?issue_id=';
 
     return fetch(
-        `${_apiBase}${url}${ issueId }`,
+        `${_apiBase}${url}${ issueId }&limit=100`,
         {
             method: "GET",
             headers: {
@@ -78,22 +76,31 @@ export const getIssueSpentTime = (issueId=53008) => {
             }
         })
         .then(res => res.json())
-        .then(json => {
-            console.log('DATA in getIssueSpentTime: ', json);
-            return json
+        .then(data => {
+            let { time_entries } = data;
+            let timeOverall = 0;
+
+            time_entries.map((time_entry) => {
+                timeOverall += time_entry.hours;
+            });
+            return timeOverall
         })
         .catch(reject=> console.log('You have Error in getIssueSpentTime: ', reject))
 };
 
 
 
-export const postProjectTime = ( hours=1, issueId=53008 ) => {
+export const postProjectTime = ( hours=0, issueId ) => {
+    const url = '/time_entries.json';
+    let _hour = +hours;
+    // console.log('Hours Type: ', typeof _hour);
 
     let postData = new FormData();
     postData.append( "time_entry[issue_id]", issueId );
-    postData.append( "time_entry[hours]", hours );
+    postData.append( "time_entry[hours]", _hour );
+    // console.log( 'Data in Post ID: ',issueId, 'HOURS: ',hours );
 
-    fetch(`${_apiBase}/time_entries.json`, {
+    fetch(`${_apiBase}${url}`, {
         method: "POST",
         body: postData,
         headers: {

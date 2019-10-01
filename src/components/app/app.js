@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import './app.css';
 import LoginPage from '../login/login';
+import Comment from '../comment/comment';
 // import Spinner from '../spinner/spinner';
 import Error from '../error-handler/error';
 import SuccessPage from "../success-page/successPage";
@@ -27,8 +28,11 @@ const App =()=> {
                     render={({ match }) => {
                     const { id } = match.params;
                     return <IssuesList dataId={ id } />
-                                       }}/>
-
+                                       }} exact/>
+                <Route
+                    path="/projects/comment"
+                    component={ Comment } />
+                    }}/>
 
             </Switch>
         )

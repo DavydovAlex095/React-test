@@ -17,9 +17,11 @@ const TrackTimeForm =({ projectId }) => {
     const showModal =() => {
         getIssueSpentTime(id)
             .then( data => {
-                console.log('Data in UseEffect ISSUES List: ', data);
-                data? setIssueTime(data.issues) : setIssueTime(null)});
-        setModal("modal-show")
+                let _data = data.toFixed(2);
+                console.log('Data in TrackTimeForm: ', _data);
+                data? setIssueTime(_data) : setIssueTime(null);
+            });
+        setModal("modal-show");
     };
 
     const hideModal = () => {
@@ -30,7 +32,6 @@ const TrackTimeForm =({ projectId }) => {
 
     const sendData = () => {
         postProjectTime( logTime, id );
-        postProjectTime();
         console.log( 'data in Issue: ', projectId );
         console.log('id: ', id );
         hideModal();
@@ -43,7 +44,6 @@ const TrackTimeForm =({ projectId }) => {
             <div id="myModal" className={ modal }>
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h3>Issue log time: { issueTime }</h3>
                         <h2>Log your time</h2>
                         <span className="close"
                               onClick={ hideModal }>&times;</span>
@@ -61,6 +61,7 @@ const TrackTimeForm =({ projectId }) => {
                                value={ dateNow } readOnly/>
                     </div>
                     <div className="modal-footer">
+                        <h3>Issue log time: { issueTime } hours</h3>
                         <button className='btn btn-success'
                             onClick={() => sendData() }>Submit Time</button>
                         <button className='btn btn-danger'
