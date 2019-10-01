@@ -1,7 +1,9 @@
 import {
-    ISSUES_REQUEST,
+    ISSUES_LIST,
     LOGIN_REQUEST,
     PROJECTS_REQUEST,
+    PROJECTS_LIST,
+    PROJECT_TIME
 } from "../actions/actions";
 
 const initialState = {
@@ -12,14 +14,15 @@ const initialState = {
     issuesList: []
 };
 
-export default (state = initialState, action, payload = null) => {
+export default (state = initialState, action ) => {
     switch (action.type) {
-        case ISSUES_REQUEST:
+        case ISSUES_LIST:
             return {
                 ...state,
-                isLoading: true,
-                isSuccess: false,
-                isFail: false
+                isLoading: false,
+                isSuccess: true,
+                isFail: false,
+                issues: action.payload
             };
         case LOGIN_REQUEST:
             return {
@@ -34,8 +37,20 @@ export default (state = initialState, action, payload = null) => {
                 ...state,
                 isLoading: true,
                 isSuccess: false,
+                isFail: false
+            };
+        case PROJECTS_LIST:
+            return {
+                ...state,
+                isLoading: false,
+                isSuccess: true,
                 isFail: false,
-                products: payload
+                projects: action.payload
+            };
+        case PROJECT_TIME:
+            return {
+                ...state,
+                time: action.payload
             };
         default:
             return state

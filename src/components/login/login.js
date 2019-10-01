@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-// import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import './login.css';
 // import { projectsRequest } from '../../actions/actionCreators';
-import { getProjects } from "../../services/services";
-import store from "../../store/store";
+// import { getProjects } from "../../services/services";
+// import store from "../../store/store";
 
 
-const LoginPage =()=> {
+const LoginPage =({history})=> {
 
-    const submitBtn =  e => {
+    const submitBtn =(e)=> {
         e.preventDefault();
-        // console.log('Login works, name: ',name, 'value: ', password );
-        // projectsRequest();
-        // console.log('data: ',getProjects());
-        getProjects();
+        if(name === '1' && password === '1'){
+            history.push('/projects')
+        }else{
+            history.push('/error')
+        }
     };
-    console.log(store.getState());
 
     const [ name, setName ] = useState('');
     const [ password, setPassword ] = useState('');
@@ -34,7 +34,7 @@ const LoginPage =()=> {
                     <input type="text"  className="fadeIn second"
                            maxLength='100' value={ name }
                            name="login" autoComplete='on'
-                           onChange={e=>setName(e.target.value)} required/>
+                           onChange={e => setName(e.target.value)} required/>
                     <h2> Password </h2>
                     <input type="password" className="fadeIn third"
                            maxLength='100' value={ password }
@@ -51,4 +51,4 @@ const LoginPage =()=> {
     )
 };
 
-export default LoginPage;
+export default withRouter(LoginPage);

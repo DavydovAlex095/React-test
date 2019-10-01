@@ -1,4 +1,6 @@
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const PROJECTS_REQUEST = "PROJECTS_REQUEST";
-export const ISSUES_REQUEST = "ISSUES_REQUEST";
+export const ISSUES_LIST = "ISSUES_LIST";
+export const PROJECTS_LIST = "PROJECTS_LIST";
+export const PROJECT_TIME = "PROJECT_TIME";

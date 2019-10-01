@@ -1,28 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
-import store from "../../store/store";
+// import store from "../../store/store";
 import './projectsList.css';
+import { getProjects } from '../../services/services';
+import Project from '../project/project';
 
 
 const ProjectsList = () => {
 
-    // const [ projects, setProjects ] = useState('');
+    const [ projects, setProjects ] = useState(null);
     // const [ password, setPassword ] = useState('');
 
     useEffect(() => {
-        console.log('store in projects list: ', store.getState());
-        // const subscription = props.source.subscribe();
-        return () => {
-            // Clean up the subscription
-            // subscription.unsubscribe();
-        };
+        getProjects()
+            .then( data => {
+                console.log('Data in UseEffect: ', data.projects);
+                setProjects(data.projects);
+        });
     }, []);
 
     return (
         <div className="project-list">
-            <h2>Projects list here</h2>
+            <h2>Projects list: </h2>
+            { !projects?
+                (<h2>Loading ...</h2>) : (
+                    projects.map(
+                        data =>  <Project project={ data } key={data.id}/>
+                    ))}
+
         </div>
     );
 };
 
-export default ProjectsList;
+const mapStateToProps = ({ projects }) => {
+    return { projects }
+};
+
+export default connect(mapStateToProps)(ProjectsList);
