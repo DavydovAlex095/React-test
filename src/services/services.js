@@ -1,4 +1,4 @@
-import {PROJECTS_LIST, ISSUES_LIST, PROJECT_TIME } from "../actions/actions";
+import {PROJECTS_LIST, ISSUES_LIST, PROJECT_TIME, SAVE_ID } from "../actions/actions";
 import store from "../store/store";
 
 const _apiBase = 'https://redmine.ekreative.com';
@@ -25,6 +25,7 @@ export const getProjects = () => {
 
 export const getProjectIssues = projectId => {
     const url = '/issues.json';
+    dispatch({ type: SAVE_ID, payload: projectId });
 
     return fetch(
         `${_apiBase}${url}?project_id=${projectId}`,
@@ -38,7 +39,7 @@ export const getProjectIssues = projectId => {
         .then(res => res.json())
         .then(json => {
             dispatch({ type: ISSUES_LIST, payload: json });
-            console.log('ISSUES in fetch: ', json);
+            console.log('Project Id in fetch: ', json);
             return json })
         .catch(reject=> console.log('You have Error: ', reject))
 };

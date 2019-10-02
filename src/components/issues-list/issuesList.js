@@ -11,9 +11,11 @@ import Comment from '../comment/comment';
 const IssuesList = ( {dataId, history} ) => {
 
     const [ issues, setIssues ] = useState(null);
-    const name = !issues ? null : issues[0].project.name;
     const [ comment, setComment ] = useState(false);
     const [ spentTime, setSpentTime ] = useState(null);
+    const [ _id, setId ] = useState(dataId);
+
+    const name = !issues ? null : issues[0].project.name;
 
     useEffect(() => {
         getProjectIssues(dataId)
@@ -34,7 +36,7 @@ const IssuesList = ( {dataId, history} ) => {
         if(!comment) {
             history.push('/projects/comment');
         } else {
-            history.push(`/projects/${dataId}`);
+            history.push(`/projects/${_id}`);
         }
         setComment(!comment);
     };

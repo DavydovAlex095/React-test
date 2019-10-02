@@ -33,6 +33,7 @@ const App =()=> {
                     path="/projects/comment"
                     component={ Comment } />
                     }}/>
+                <Route render={()=> <h2>Page not found</h2>} />
 
             </Switch>
         )
