@@ -1,9 +1,8 @@
 
 
-export const saveProjectComment =({ projectId, comment }) => {
+export const saveProjectComment =( projectId, comment ) => {
 
     let comments;
-
     try {
         comments = JSON.parse(localStorage.getItem('comments'));
     } catch (error) {
@@ -18,7 +17,6 @@ export const saveProjectComment =({ projectId, comment }) => {
     }
 
     let result;
-
     try {
         result = JSON.stringify(comments);
     } catch (error) {

@@ -1,7 +1,6 @@
 
 
 export const getProjectComments = (projects) => {
-
     let comments;
 
     try {
@@ -11,13 +10,9 @@ export const getProjectComments = (projects) => {
         return projects;
     }
 
-    return projects.map( project => {
-        const { id } = project;
-
-        if (comments && comments[id]) {
-            project.comment = comments[id];
+    for (let [key, value] of Object.entries(comments)) {
+        if (key === projects) {
+            return value;
         }
-
-        return project;
-    });
+    }
 };

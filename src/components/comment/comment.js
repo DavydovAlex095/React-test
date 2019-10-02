@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 
 import { saveProjectComment } from "../../services/saveProjectComment";
 import store from '../../store/store';
+import './comment.css';
 
 const Comment =()=> {
 
-    // const [ name, setName ] = useState('');
     const [ comment, setComment ] = useState('');
 
     const submitBtn =(e)=> {
         e.preventDefault();
         const { projId } = store.getState();
-        saveProjectComment( projId,  );
+        saveProjectComment( projId, comment );
         console.log( 'projId, comment: ', projId, comment );
     };
 
@@ -19,11 +19,7 @@ const Comment =()=> {
         <div>
             <div className="formContent">
                 <form>
-                    {/*<span>Comment topic:</span>*/}
-                    {/*<input type="text"  className="comment-name"*/}
-                           {/*maxLength='100' value={ name }*/}
-                           {/*onChange={e => setName(e.target.value)}*/}
-                           {/*required/>*/}
+
                     <h3>Comment:</h3>
                     <textarea className="comment-text" rows="5"
                            value={ comment }
