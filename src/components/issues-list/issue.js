@@ -8,9 +8,9 @@ const Issue = ({ value }) => {
     const { subject } = value;
 
     return (
-        <div className="single-issue">
+        <>
                 <p>{ subject }</p>
-        </div>
+        </>
     )
 };
 

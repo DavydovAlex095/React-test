@@ -4,7 +4,8 @@ import {
     PROJECTS_REQUEST,
     PROJECTS_LIST,
     PROJECT_TIME,
-    SAVE_ID
+    SAVE_ID,
+    ISSUES_FAIL
 } from "../actions/actions";
 
 const initialState = {
@@ -24,6 +25,11 @@ export default (state = initialState, action ) => {
                 isSuccess: true,
                 isFail: false,
                 issues: action.payload,
+            };
+        case ISSUES_FAIL:
+            return {
+                ...state,
+                isFail: true,
             };
         case LOGIN_REQUEST:
             return {
@@ -57,7 +63,7 @@ export default (state = initialState, action ) => {
             return {
                 ...state,
                 projId: action.payload
-            }
+            };
         default:
             return state
     }

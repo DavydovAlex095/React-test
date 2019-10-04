@@ -9,7 +9,7 @@ const TrackTimeForm =({ projectId }) => {
     const [ description, setDescription ] = useState('');
     const [ logTime, setLogTime ] = useState('');
     const [ modal, setModal ]  = useState( 'modal');
-    const [ issueTime, setIssueTime ] = useState(null);
+    const [ issueTime, setIssueTime ] = useState(0.00);
     const { id } = projectId;
 
     const dateNow = new Date().toDateString();
@@ -19,7 +19,7 @@ const TrackTimeForm =({ projectId }) => {
             .then( data => {
                 let _data = data.toFixed(2);
                 console.log('Data in TrackTimeForm: ', _data);
-                data? setIssueTime(_data) : setIssueTime(null);
+                data? setIssueTime(_data) : setIssueTime(0.00);
             });
         setModal("modal-show");
     };
@@ -49,21 +49,20 @@ const TrackTimeForm =({ projectId }) => {
                               onClick={ hideModal }>&times;</span>
                     </div>
                     <div className="modal-body">
+                        <h3>Type description: </h3>
                         <input type='text'
                                value={ description }
                                onChange={(e) => setDescription(e.target.value)}/>
-                        <h3>Type description </h3>
+                        <h3>Log Your time: </h3>
                         <input type='number'
                                value={ logTime }
                                onChange={(e) => setLogTime(e.target.value)}/>
-                        <h3>Log your time </h3>
-                        <input type='text'
-                               value={ dateNow } readOnly/>
+                        <div> { dateNow }</div>
                     </div>
                     <div className="modal-footer">
                         <h3>Issue log time: { issueTime } hours</h3>
                         <button className='btn btn-success'
-                            onClick={() => sendData() }>Submit Time</button>
+                            onClick={() => sendData() }>Submit</button>
                         <button className='btn btn-danger'
                             onClick={ hideModal }>Cancel</button>
                     </div>

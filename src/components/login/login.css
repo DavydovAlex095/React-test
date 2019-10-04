@@ -1,10 +1,29 @@
 
 .formContent {
     display: flex;
-    margin-left: 200px;
+    margin-left: 35%;
+    margin-top: 50px;
     width: 400px;
     flex-direction: column;
     align-items: center;
-    color: grey;
-    border: 2px dotted black;
+    color: black;
+    border: 2px solid black;
+    /*border-radius: 4px;*/
+    background-color: silver;
+}
+.login-btn {
+    /*margin-bottom: 5px;*/
+    width: 100%;
+    border-top: black  solid 1px;
+    color: black;
+}
+a {
+    text-decoration: none;
+    color: #cccccc;
+ }
+.login {
+    margin-left: 5%;
+}
+.flex-container {
+    display: flex;
 }

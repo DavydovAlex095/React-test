@@ -10,6 +10,7 @@ const ProjectsList = () => {
 
     const [ projects, setProjects ] = useState(null);
 
+
     useEffect(() => {
         getProjects()
             .then( data => {
@@ -17,11 +18,12 @@ const ProjectsList = () => {
         });
     }, []);
 
+
     return (
         <div className="project-list">
-            <h2>Projects list: </h2>
+            <h2 className="projects-header">Projects list: </h2>
             { !projects?
-                (<h2>Loading ...</h2>) : (
+                (<h2>No Data for this Project!</h2>) : (
                     projects.map(
                         data =>  <Project project={ data } key={data.id}/>
                     ))}

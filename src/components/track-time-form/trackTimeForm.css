@@ -35,7 +35,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
     margin: auto;
     padding: 0;
     border: 1px solid #888;
-    width: 80%;
+    width: 40%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -45,6 +45,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 input {
     display: block;
+    margin-bottom: 15px;
+    margin-left: 20%;
 }
 
 /* Add Animation */
@@ -75,14 +77,18 @@ input {
 
 .modal-header {
     padding: 2px 16px;
-    background-color: dodgerblue;
+    background-color: grey;
     color: white;
 }
 
-.modal-body {padding: 2px 16px;}
+.modal-body {
+    padding: 2px 16px;
+    /*background-color: silver;*/
+    /*color: white;*/
+}
 
 .modal-footer {
     padding: 2px 16px;
-    background-color: dodgerblue;
+    background-color: grey;
     color: white;
 }

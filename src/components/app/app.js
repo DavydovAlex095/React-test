@@ -4,7 +4,6 @@ import { Route, Switch } from 'react-router-dom'
 import './app.css';
 import LoginPage from '../login/login';
 import Comment from '../comment/comment';
-// import Spinner from '../spinner/spinner';
 import Error from '../error-handler/error';
 import SuccessPage from "../success-page/successPage";
 import IssuesList from "../issues-list/issuesList";
@@ -34,7 +33,6 @@ const App =()=> {
                     component={ Comment } />
                     }}/>
                 <Route render={()=> <h2>Page not found</h2>} />
-
             </Switch>
         )
 };

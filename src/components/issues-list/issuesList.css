@@ -1,19 +1,15 @@
-/*.issues-list {*/
-/*    border: 1px dashed black;*/
-/*    !*width: 100%;*!*/
-/*    margin: 10px 200px;*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    align-items: center;*/
-/*}*/
 
+.header {
+    text-align: center;
+}
 .single-issue {
     margin-left: 10px;
     cursor: pointer;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    width: 40%;
+    width: 25%;
+    font-size: 25px;
 }
 
 .single-issue:hover {
@@ -22,4 +18,28 @@
 
 .container {
     padding: 2px 16px;
+}
+.btn-group {
+    margin-left: 45px;
+    width: 20%;
+}
+.issues :hover {
+    text-decoration: none;
+    color: grey;
+}
+.back {
+    margin-left: 45px;
+    color: #cccccc;
+}
+.back :hover {
+    text-decoration: none;
+    color: grey;
+}
+.no-data {
+    margin-left: 35%;
+    color: indianred;
+}
+.loader {
+    margin-left: 35%;
+    color: green;
 }

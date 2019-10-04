@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './successPage.css';
 import icon from '../../img/success.png';
 import ProjectsList from "../projects-list/projectsList";
+import store from '../../store/store';
 
 const SuccessPage = () => {
 
@@ -18,6 +19,8 @@ const SuccessPage = () => {
         }, []
     );
 
+    const { isLoading } = store.getState();
+
     const onload = <div className="success-indicator">
                         <img src={icon} alt="success icon"/>
                         <span className="boom">ACCESS GRANTED!!!</span>
@@ -27,18 +30,10 @@ const SuccessPage = () => {
 
     return (
         <>
-            { showElem ? projects : onload }
+            { console.log('isLoading: ', isLoading) }
+            { !isLoading ? projects : onload }
         </>
     );
-
-    // return (
-    //     <div className="success-indicator">
-    //         <img src={icon} alt="success icon"/>
-    //         <span className="boom">ACCESS GRANTED!!!</span>
-    //         <span>Getting the Data!</span>
-    //         <ProjectsList />
-    //     </div>
-    // );
 };
 
 export default SuccessPage;

@@ -16,21 +16,20 @@ const IssuesList = ( {dataId, history} ) => {
     // const [ spentTime, setSpentTime ] = useState(null);
     const [ _id, setId ] = useState(dataId);
 
+    const [ isFail, setIsFail ] = useState(false);
     const name = !issues ? null : issues[0].project.name;
+
 
     useEffect(() => {
         getProjectIssues(dataId)
             .then( data => {
-                console.log('Data in UseEffect ISSUES List: ', data);
-                data? setIssues(data.issues) : setIssues(null);
-            });
-        // getProjSpentTime(dataId)
-        //     .then( value => {
-        //         console.log('Time Spent on Project: ', value.total_count);
-        //         value? setSpentTime(value.total_count) : setSpentTime(null);
-        //     })
-        //     .catch( () => console.log('No data for this Project'))
-    }, []);
+                setIssues(data.issues);
+            })
+            .catch( () => {
+                setIsFail(true);
+                console.log('No data for this Project')
+            })
+    }, [ isFail ]);
 
     const showComment = () => {
         console.log('showComment');
@@ -45,13 +44,19 @@ const IssuesList = ( {dataId, history} ) => {
     const showIssues =
         <div>
             { !issues ?
-        (<h2>Loading ...</h2>) : (
+                ( isFail?
+                    (<div className="no-data">
+                        <h2>No Issues For this Project!</h2>
+                    </div>) :
+                            (<div className="loader">
+                                <h2>Loading ...</h2>
+                            </div>)) : (
             <>
                 <ul>
                 {issues.map(
                     data =>{
                         return(
-                            <li className='single-issue' key={data.id}>
+                            <li className='single-issue p-3' key={data.id}>
                                 <Issue value={ data }  />
                                 <TrackTimeForm projectId={ data } />
                             </li>
@@ -65,17 +70,20 @@ const IssuesList = ( {dataId, history} ) => {
 
     return (
         <div>
-            <h3>Issues List for: { name }</h3>
-            <div className="btn-group" role="group" aria-label="Basic example">
-                <button type="button" className="btn btn-secondary">
-                    <Link to='/projects'>BACK to Projects</Link>
-                </button>
-                <button type="button" onClick={ showComment } className="btn btn-secondary">
-                    { !comment? <>Add Comment</> : <Link to='/projects/:id'>BACK </Link>}
-                </button>
-                <ShowComments />
+            <div className="header">
+                <h1> { name }</h1>
+                { console.log( 'isLoading, isFail', isFail) }
             </div>
+            <div className="btn-group" role="group">
+                <button type="button" onClick={ showComment } className="btn btn-secondary issues">
+                    { !comment? <div className="issues">Add Comment</div> : <Link to='/projects/:id'>BACK to ISSUES </Link>}
+                </button>
+            </div>
+            <ShowComments />
             { !comment? showIssues : <Comment />}
+            <button type="button" className="btn btn-secondary back">
+                <Link to='/projects'>BACK to PROJECTS</Link>
+            </button>
         </div>
     )
 };

@@ -1,8 +1,29 @@
-import {PROJECTS_LIST, ISSUES_LIST, PROJECT_TIME, SAVE_ID } from "../actions/actions";
+import {PROJECTS_LIST, ISSUES_LIST, PROJECT_TIME, SAVE_ID, ISSUES_FAIL } from "../actions/actions";
 import store from "../store/store";
+import { loadKey } from "./stateToLocalStorage";
 
 const _apiBase = 'https://redmine.ekreative.com';
+const _apiKey = loadKey();
 const { dispatch } = store;
+
+
+export const loginRequest = ( name, userPass ) => {
+    const url = '/users/current.json';
+
+    return fetch(`${_apiBase}${url}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Basic ${btoa(`${name}:${userPass}`)}`
+        }
+    })
+        .then(res => res.json())
+        .then(json => {
+            return json.user })
+        .catch(reject=>
+            console.log('Not correct password: ', reject))
+
+};
 
 export const getProjects = () => {
     const url = '/projects.json';
@@ -11,7 +32,7 @@ export const getProjects = () => {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "X-Redmine-API-Key": "2fda745bb4cdd835fdf41ec1fab82a13ddc1a54c"
+            "X-Redmine-API-Key": `${_apiKey}`
         }
     })
         .then(res => res.json())
@@ -32,7 +53,7 @@ export const getProjectIssues = projectId => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "X-Redmine-API-Key": "2fda745bb4cdd835fdf41ec1fab82a13ddc1a54c"
+                "X-Redmine-API-Key": `${_apiKey}`
             }
         })
         .then(res => res.json())
@@ -40,7 +61,11 @@ export const getProjectIssues = projectId => {
             dispatch({ type: ISSUES_LIST, payload: json });
             console.log('Project Id in fetch: ', json);
             return json })
-        .catch(reject=> console.log('You have Error: ', reject))
+        .catch(reject=> {
+            dispatch( { type: ISSUES_FAIL });
+            console.log('You have Error: ', reject)
+        });
+
 };
 
 export const getProjSpentTime = projectId => {
@@ -52,13 +77,12 @@ export const getProjSpentTime = projectId => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "X-Redmine-API-Key": "2fda745bb4cdd835fdf41ec1fab82a13ddc1a54c"
+                "X-Redmine-API-Key": `${_apiKey}`
             }
         })
         .then(res => res.json())
         .then(json => {
             dispatch({ type: PROJECT_TIME, payload: json });
-            console.log('DATA in getSpentTime: ', json);
             return json })
         .catch(reject=> console.log('You have Error: ', reject))
 };
@@ -72,7 +96,7 @@ export const getIssueSpentTime = ( issueId ) => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "X-Redmine-API-Key": "2fda745bb4cdd835fdf41ec1fab82a13ddc1a54c"
+                "X-Redmine-API-Key": `${_apiKey}`
             }
         })
         .then(res => res.json())
@@ -88,23 +112,19 @@ export const getIssueSpentTime = ( issueId ) => {
         .catch(reject=> console.log('You have Error in getIssueSpentTime: ', reject))
 };
 
-
-
 export const postProjectTime = ( hours=0, issueId ) => {
     const url = '/time_entries.json';
     let _hour = +hours;
-    // console.log('Hours Type: ', typeof _hour);
 
     let postData = new FormData();
     postData.append( "time_entry[issue_id]", issueId );
     postData.append( "time_entry[hours]", _hour );
-    // console.log( 'Data in Post ID: ',issueId, 'HOURS: ',hours );
 
     fetch(`${_apiBase}${url}`, {
         method: "POST",
         body: postData,
         headers: {
-            "X-Redmine-API-Key": "2fda745bb4cdd835fdf41ec1fab82a13ddc1a54c",
+            "X-Redmine-API-Key": `${_apiKey}`,
         }
     })
         .then((data => {

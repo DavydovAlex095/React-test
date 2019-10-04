@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { getProjectComments } from '../../services/getProjComments';
 import store from '../../store/store';
@@ -7,28 +7,28 @@ import './comment.css';
 const ShowComments =() => {
 
     const { projId } = store.getState();
-    const [ showHideComments, setShowAllComments ] = useState(true);
+
+    const [ comment, setComment ] = useState('');
 
     let projComment = getProjectComments(projId);
 
-    const showComments = () => {
-        setShowAllComments(!showHideComments);
-    };
 
-    const noComments = <p>No Comments for this Project</p>;
-    const comments = <p>{ projComment }</p>;
+    useEffect( () => {
+        setComment(getProjectComments(projId));
+    }, [ projComment ]);
+
+
 
     return (
         <>
-            { showHideComments?
-                <button type="button" className="btn btn-secondary" onClick={ showComments }>
-                    Show Comment
-                </button> :
-                <button type="button" className="btn btn-secondary" onClick={ showComments }>
-                    Hide Comment
-                </button>}
             <div className="comment-container">
-                { !showHideComments? comments : noComments }
+                { console.log('comment in ShowComment: ', comment) }
+                <div className="comment-text">
+                    <h3> COMMENTS: </h3>
+                    { comment?
+                        <p>{ comment }</p>
+                        : <p>No Comments for this Project</p> }
+                </div>
             </div>
         </>
     )

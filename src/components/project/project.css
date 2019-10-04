@@ -2,12 +2,18 @@
 .single-project {
     color: dodgerblue;
     cursor: pointer;
+    font-size: 30px;
 }
 
 li {
      list-style-type: none;
      margin-left: 10px;
+     margin-top: 5px;
      padding: 0;
  }
+.single-project :hover {
+    color: white;
+    background-color: grey;
+}
 
 
