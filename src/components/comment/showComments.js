@@ -10,19 +10,15 @@ const ShowComments =() => {
 
     const [ comment, setComment ] = useState('');
 
-    let projComment = getProjectComments(projId);
+    const projComment = getProjectComments(projId);
 
 
     useEffect( () => {
         setComment(getProjectComments(projId));
-    }, [ projComment ]);
-
-
+    }, [ projComment, projId ]);
 
     return (
-        <>
             <div className="comment-container">
-                { console.log('comment in ShowComment: ', comment) }
                 <div className="comment-text">
                     <h3> COMMENTS: </h3>
                     { comment?
@@ -30,7 +26,6 @@ const ShowComments =() => {
                         : <p>No Comments for this Project</p> }
                 </div>
             </div>
-        </>
     )
 };
 

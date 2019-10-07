@@ -9,7 +9,7 @@ const Issue = ({ value }) => {
 
     return (
         <>
-                <p>{ subject }</p>
+                <p className="single-issue-title" title={subject}>{ subject }</p>
         </>
     )
 };

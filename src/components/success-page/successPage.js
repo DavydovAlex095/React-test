@@ -12,11 +12,10 @@ const SuccessPage = () => {
     useEffect(
         () => {
             const timer = setTimeout(() => {
-                console.log('This will run after 1 second!')
                 setShowElem(!showElem);
             }, 1000);
             return () => clearTimeout(timer);
-        }, []
+        }
     );
 
     const { isLoading } = store.getState();
@@ -30,7 +29,6 @@ const SuccessPage = () => {
 
     return (
         <>
-            { console.log('isLoading: ', isLoading) }
             { !isLoading ? projects : onload }
         </>
     );

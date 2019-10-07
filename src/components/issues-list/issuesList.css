@@ -8,8 +8,15 @@
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    width: 25%;
+    width: 24%;
     font-size: 25px;
+    display: inline-block;
+}
+
+.single-issue-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .single-issue:hover {
@@ -30,6 +37,8 @@
 .back {
     margin-left: 45px;
     color: #cccccc;
+    position: absolute;
+    bottom: 0;
 }
 .back :hover {
     text-decoration: none;

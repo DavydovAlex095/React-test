@@ -6,8 +6,6 @@ import store from './store/store'
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-// console.log('store is: ',store.getState());
-
 ReactDOM.render(
     <Provider store={store}>
         <Router>

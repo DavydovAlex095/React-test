@@ -2,22 +2,21 @@ import React, {useEffect, useState} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 
 import './issuesList.css';
-import { getProjectIssues, getProjSpentTime } from '../../services/services';
+import { getProjectIssues } from '../../services/requests';
 import Issue from './issue';
 import TrackTimeForm from '../track-time-form/trackTimeForm';
 import Comment from '../comment/comment';
 import ShowComments from "../comment/showComments";
 
 
-const IssuesList = ( {dataId, history} ) => {
+const IssuesList = ( {dataId } ) => {
 
     const [ issues, setIssues ] = useState(null);
     const [ comment, setComment ] = useState(false);
-    // const [ spentTime, setSpentTime ] = useState(null);
-    const [ _id, setId ] = useState(dataId);
 
     const [ isFail, setIsFail ] = useState(false);
     const name = !issues ? null : issues[0].project.name;
+
 
 
     useEffect(() => {
@@ -27,17 +26,10 @@ const IssuesList = ( {dataId, history} ) => {
             })
             .catch( () => {
                 setIsFail(true);
-                console.log('No data for this Project')
             })
-    }, [ isFail ]);
+    }, [ isFail, dataId ]);
 
     const showComment = () => {
-        console.log('showComment');
-        if(!comment) {
-            history.push('/projects/comment');
-        } else {
-            history.push(`/projects/${_id}`);
-        }
         setComment(!comment);
     };
 
@@ -72,11 +64,12 @@ const IssuesList = ( {dataId, history} ) => {
         <div>
             <div className="header">
                 <h1> { name }</h1>
-                { console.log( 'isLoading, isFail', isFail) }
             </div>
             <div className="btn-group" role="group">
                 <button type="button" onClick={ showComment } className="btn btn-secondary issues">
-                    { !comment? <div className="issues">Add Comment</div> : <Link to='/projects/:id'>BACK to ISSUES </Link>}
+                    { !comment?
+                        <div className="issues">Add Comment</div> :
+                        <Link to={ '/projects/'+ dataId }>BACK to ISSUES </Link>}
                 </button>
             </div>
             <ShowComments />

@@ -2,7 +2,6 @@
 
 export const getProjectComments = (projects) => {
     let comments;
-    console.log('projects: ',projects );
 
     try {
         comments = JSON.parse(localStorage.getItem('comments'));

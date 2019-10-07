@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
 import './trackTimeForm.css';
-import { postProjectTime } from '../../services/services';
-import { getIssueSpentTime } from '../../services/services';
+import { postProjectTime, getIssueSpentTime } from '../../services/requests';
 
 const TrackTimeForm =({ projectId }) => {
 
@@ -18,7 +17,6 @@ const TrackTimeForm =({ projectId }) => {
         getIssueSpentTime(id)
             .then( data => {
                 let _data = data.toFixed(2);
-                console.log('Data in TrackTimeForm: ', _data);
                 data? setIssueTime(_data) : setIssueTime(0.00);
             });
         setModal("modal-show");

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import './projectsList.css';
-import { getProjects } from '../../services/services';
-import Project from '../project/project';
+import { getProjects } from '../../services/requests';
+import Project from './project';
 
 
 const ProjectsList = () => {
@@ -20,13 +20,15 @@ const ProjectsList = () => {
 
 
     return (
-        <div className="project-list">
-            <h2 className="projects-header">Projects list: </h2>
+        <div className="project-list w-25">
+            <h2 className="p-3">Projects list: </h2>
             { !projects?
                 (<h2>No Data for this Project!</h2>) : (
-                    projects.map(
+                    <ul>
+                        { projects.map(
                         data =>  <Project project={ data } key={data.id}/>
-                    ))}
+                    )}
+                    </ul>)}
 
         </div>
     );

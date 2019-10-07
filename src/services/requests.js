@@ -1,4 +1,4 @@
-import {PROJECTS_LIST, ISSUES_LIST, PROJECT_TIME, SAVE_ID, ISSUES_FAIL } from "../actions/actions";
+import {PROJECTS_LIST, ISSUES_LIST, SAVE_ID, ISSUES_FAIL } from "../actions";
 import store from "../store/store";
 import { loadKey } from "./stateToLocalStorage";
 
@@ -20,7 +20,7 @@ export const loginRequest = ( name, userPass ) => {
         .then(res => res.json())
         .then(json => {
             return json.user })
-        .catch(reject=>
+        .catch( reject =>
             console.log('Not correct password: ', reject))
 
 };
@@ -59,33 +59,13 @@ export const getProjectIssues = projectId => {
         .then(res => res.json())
         .then(json => {
             dispatch({ type: ISSUES_LIST, payload: json });
-            console.log('Project Id in fetch: ', json);
             return json })
         .catch(reject=> {
             dispatch( { type: ISSUES_FAIL });
-            console.log('You have Error: ', reject)
         });
 
 };
 
-export const getProjSpentTime = projectId => {
-    const url = '/time_entries.json';
-
-    return fetch(
-        `${_apiBase}${url}?project_id=${projectId}`,
-        {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "X-Redmine-API-Key": `${_apiKey}`
-            }
-        })
-        .then(res => res.json())
-        .then(json => {
-            dispatch({ type: PROJECT_TIME, payload: json });
-            return json })
-        .catch(reject=> console.log('You have Error: ', reject))
-};
 
 export const getIssueSpentTime = ( issueId ) => {
     const url = '/time_entries.json?issue_id=';
@@ -104,9 +84,8 @@ export const getIssueSpentTime = ( issueId ) => {
             let { time_entries } = data;
             let timeOverall = 0;
 
-            time_entries.map((time_entry) => {
-                timeOverall += time_entry.hours;
-            });
+            time_entries.map((time_entry) =>
+                timeOverall += time_entry.hours);
             return timeOverall
         })
         .catch(reject=> console.log('You have Error in getIssueSpentTime: ', reject))

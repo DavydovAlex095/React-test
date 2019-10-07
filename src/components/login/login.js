@@ -2,16 +2,13 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import './login.css';
-// import { projectsRequest } from '../../actions/actionCreators';
-// import { getProjects } from "../../services/services";
-// import store from "../../store/store";
-import { loginRequest } from '../../services/services';
+import { loginRequest } from '../../services/requests';
 import { setUserData } from "../../services/stateToLocalStorage";
 
 
-const LoginPage =({history})=> {
+const LoginPage = ({ history }) => {
 
-    const submitBtn =(e)=> {
+    const submitBtn = (e) => {
         e.preventDefault();
         loginRequest( name, password )
             .then( res => {
@@ -24,34 +21,35 @@ const LoginPage =({history})=> {
             .catch(() => history.push('/error'))
     };
 
-    const clearLogin =() => {
-        setName('');
-        setPassword('');
-    };
-
     const [ name, setName ] = useState('');
     const [ password, setPassword ] = useState('');
 
-    return(
-        <div className="flex-container">
-            <div className="formContent">
-                <h2> Login: </h2>
-                <input type="text"  className="fadeIn second login"
-                       maxLength='100' value={ name }
-                       name="login" autoComplete='on'
-                       onChange={ e => setName(e.target.value)} required/>
-                <h2> Password: </h2>
-                <input type="password" className="fadeIn third login"
-                       maxLength='100' value={ password }
-                       autoComplete='on' name="login"
-                       onChange={ e => setPassword(e.target.value)}
-                       required/><br/>
-                <button onClick={submitBtn} className="btn btn-success login-btn">
-                    ENTER
-                </button>
-                <button onClick={clearLogin} className="btn btn-danger login-btn ">
-                    CLEAR
-                </button>
+    return (
+        <div className="container mt-5 col-4 shadow bg-lavender">
+            <div className="logo">Log In</div>
+            <div className="login-item">
+                <form className="form form-login">
+                    <div className="form-field">
+                        <label className="user" htmlFor="name"><span
+                            className="hidden">Username</span></label>
+                        <input type="text" className="form-input"
+                               autoComplete='on' value={ name }
+                               onChange={ e => setName(e.target.value)} required />
+                    </div>
+
+                    <div className="form-field">
+                        <label className="lock" htmlFor="login-password"><span
+                            className="hidden">Password</span></label>
+                        <input type="password" className="form-input" value={ password }
+                               autoComplete='on'
+                               onChange={ e => setPassword(e.target.value)}
+                               required />
+                    </div>
+
+                    <div className="form-field d-flex justify-content-center">
+                        <input className="col-4" type="submit" onClick={submitBtn} />
+                    </div>
+                </form>
             </div>
         </div>
     )

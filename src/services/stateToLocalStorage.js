@@ -11,29 +11,6 @@ export const loadKey = () => {
     }
 };
 
-export const loadUserName = () => {
-    try {
-        const userName = localStorage.getItem('userName');
-        if (userName === null) {
-            return undefined;
-        }
-        return JSON.parse(userName);
-    } catch (err) {
-        return undefined;
-    }
-};
-export const loadUserPass = () => {
-    try {
-        const userPass = localStorage.getItem('userPass');
-        if (userPass === null) {
-            return undefined;
-        }
-        return JSON.parse(userPass);
-    } catch (err) {
-        return undefined;
-    }
-};
-
 export const setUserData = ( userName, userPass, _apiKey ) => {
 
     try {

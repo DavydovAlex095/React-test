@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom'
 
-import './app.css';
 import LoginPage from '../login/login';
 import Comment from '../comment/comment';
 import Error from '../error-handler/error';
@@ -9,7 +8,7 @@ import SuccessPage from "../success-page/successPage";
 import IssuesList from "../issues-list/issuesList";
 
 
-const App =()=> {
+const App = () => {
 
         return (
             <Switch>
